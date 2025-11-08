@@ -75,4 +75,26 @@ python lut_builder.py
 ```powershell
 venv\Scripts\activate
 
+python mix_test.py
+
+혼합 결과 RGB: (41, 130, 57)
+
+import mixbox
+
+# 두 색상 (파랑, 노랑)
+rgb1 = (0, 33, 133)
+rgb2 = (252, 211, 0)
+t = 0.5  # 혼합 비율
+
+rgb_mix = mixbox.lerp(rgb1, rgb2, t)
+print("혼합 결과 RGB:", rgb_mix)
+
+
+pigment-mixing-reproduction-ayoungpark
+├─ images
+│  ├─ install_pymixbox.png   # pip 설치/재설치 로그 캡처
+│  └─ mix_result.png         # mix_test.py 실행 결과 캡처
+├─ README.md
+└─ mix_test.py
+
 
