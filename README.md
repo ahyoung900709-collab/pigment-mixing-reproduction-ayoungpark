@@ -40,3 +40,39 @@ pip install numpy scipy matplotlib PyQt5 opencv-python
 # 4. LUT(룩업테이블) 생성
 python lut_builder.py
 
+# Pigment Mixing (Mixbox) – Reproduction Log (Ayoung Park)
+
+본 저장소는 **pymixbox**를 사용해 Mixbox 기반 색상 혼합을 로컬에서 재현한 기록입니다.  
+- 원저작(Secret Weapons): https://github.com/scrtwpns/mixbox  
+- 라이선스: CC BY-NC 4.0 (비상업 목적) – 상업적 사용 시 원저작자에 문의 필요
+
+---
+
+## 🔧 Environment
+- OS: Windows 11
+- Shell: PowerShell
+- Python: 3.12 (venv)
+- Packages: `pymixbox`, (테스트용) `numpy`, `matplotlib` 등
+
+---
+
+## 📦 Installation Log (pymixbox)
+설치/재설치 확인 로그 캡처:
+
+![pip install log](images/install_pymixbox.png)
+
+> 재현 방법:
+> ```powershell
+> python -m pip install --force-reinstall pymixbox
+> pip show pymixbox
+> ```
+
+---
+
+## ▶️ Quick Start
+
+1) 가상환경 활성화
+```powershell
+venv\Scripts\activate
+
+
