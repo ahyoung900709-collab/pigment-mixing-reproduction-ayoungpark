@@ -1,5 +1,3 @@
-# pigment-mixing-reproduction-ayoungpark
-“Practical Pigment Mixing 재현 과제"
 # 🎨 Practical Pigment Mixing for Digital Painting – 실행 재현 및 실습 보고서
 > 성균관대학교 스마트팩토리융합학과  
 > **박아영 / 오픈소스 분석 개인과제**
@@ -41,3 +39,4 @@ pip install numpy scipy matplotlib PyQt5 opencv-python
 
 # 4. LUT(룩업테이블) 생성
 python lut_builder.py
+
