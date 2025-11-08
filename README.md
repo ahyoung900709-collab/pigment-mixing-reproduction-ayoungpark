@@ -1,29 +1,11 @@
 # 🎨 Practical Pigment Mixing for Digital Painting – 실행 재현 및 실습 보고서
-> 성균관대학교 스마트팩토리융합학과  
-> **박아영 / 오픈소스 분석 개인과제**
+**성균관대학교 스마트팩토리융합학과 / 박아영**  
+오픈소스 분석 개인과제
 
 ---
 
-## 📘 1️⃣ 프로젝트 개요
-- **논문명:** *Practical Pigment Mixing for Digital Painting* (ACM TOG, 2021)  
-- **저자:** Šárka Sochorová, Ondřej Jamriška  
-- **공개 저장소:** [scrtwpns/pigment-mixing](https://github.com/scrtwpns/pigment-mixing)  
-- **핵심 목표:**  
-  기존 RGB 기반 디지털 페인팅의 비현실적인 색 혼합 문제(빛의 가산혼합)를 해결하기 위해  
-  **Kubelka–Munk(K–M)** 모델을 **RGB 워크플로우**에 통합한 물리 기반 색 혼합 시스템 구현  
+## 🧩 1️⃣ 오픈소스 클론 및 환경 구성
 
----
-
-## ⚙️ 2️⃣ 실습 환경 구성
-| 항목 | 내용 |
-|------|------|
-| OS | Windows 11 Pro |
-| Python | 3.10 (Anaconda 환경) |
-| GPU | RTX 3060 Laptop GPU |
-| IDE | VSCode / Jupyter Notebook |
-| 주요 라이브러리 | `numpy`, `scipy`, `matplotlib`, `PyQt5`, `opencv-python` |
-
-### ▶ 설치 및 실행
 ```bash
 # 1. 오픈소스 클론
 git clone https://github.com/scrtwpns/pigment-mixing.git
@@ -31,53 +13,20 @@ cd pigment-mixing/core
 
 # 2. 가상환경 생성 및 활성화
 python -m venv venv
-source venv/Scripts/activate  # Windows
-# source venv/bin/activate    # macOS/Linux
+venv\Scripts\activate      # Windows
+# source venv/bin/activate # macOS/Linux
 
 # 3. 필수 라이브러리 설치
 pip install numpy scipy matplotlib PyQt5 opencv-python
 
-# 4. LUT(룩업테이블) 생성
+# 4. LUT(룩업테이블) 생성 (Kubelka–Munk 기반 색상 데이터 생성)
 python lut_builder.py
 
-# Pigment Mixing (Mixbox) – Reproduction Log (Ayoung Park)
+본 실습에서는 Mixbox의 Python 버전(pymixbox)을 이용하여
+안료(Pigment) 기반 색상 혼합을 재현하였습니다.
 
-본 저장소는 **pymixbox**를 사용해 Mixbox 기반 색상 혼합을 로컬에서 재현한 기록입니다.  
-- 원저작(Secret Weapons): https://github.com/scrtwpns/mixbox  
-- 라이선스: CC BY-NC 4.0 (비상업 목적) – 상업적 사용 시 원저작자에 문의 필요
-
----
-
-## 🔧 Environment
-- OS: Windows 11
-- Shell: PowerShell
-- Python: 3.12 (venv)
-- Packages: `pymixbox`, (테스트용) `numpy`, `matplotlib` 등
-
----
-
-## 📦 Installation Log (pymixbox)
-설치/재설치 확인 로그 캡처:
-
-![pip install log](images/install_pymixbox.png)
-
-> 재현 방법:
-> ```powershell
-> python -m pip install --force-reinstall pymixbox
-> pip show pymixbox
-> ```
-
----
-
-## ▶️ Quick Start
-
-1) 가상환경 활성화
-```powershell
-venv\Scripts\activate
-
-python mix_test.py
-
-혼합 결과 RGB: (41, 130, 57)
+python -m pip install --force-reinstall pymixbox
+pip show pymixbox
 
 import mixbox
 
@@ -90,11 +39,47 @@ rgb_mix = mixbox.lerp(rgb1, rgb2, t)
 print("혼합 결과 RGB:", rgb_mix)
 
 
+실행 결과
+
+✅ 혼합 결과 RGB: (41, 130, 57)
+파랑(0,33,133) + 노랑(252,211,0) → 실제 회화처럼 녹색 계열 혼합
+(Kubelka–Munk 이론 기반 Pigment 혼색 재현)
+
 pigment-mixing-reproduction-ayoungpark
 ├─ images
-│  ├─ install_pymixbox.png   # pip 설치/재설치 로그 캡처
-│  └─ mix_result.png         # mix_test.py 실행 결과 캡처
+│  ├─ install_pymixbox.png   # pip 설치 로그
+│  └─ mix_result.png         # 혼합 결과 캡처
 ├─ README.md
-└─ mix_test.py
+└─ mix_test.py               # 실행 코드
 
+환경요약
+| 항목     | 내용                                                                                        |
+| ------ | ----------------------------------------------------------------------------------------- |
+| OS     | Windows 11                                                                                |
+| Shell  | PowerShell                                                                                |
+| Python | 3.12 (venv)                                                                               |
+| 패키지    | pymixbox, numpy, matplotlib 등                                                             |
+| 원저작    | Secret Weapons – [https://github.com/scrtwpns/mixbox](https://github.com/scrtwpns/mixbox) |
+| 라이선스   | CC BY-NC 4.0 (비상업적 사용 허용)                                                                 |
+
+
+5️⃣ 분석 요약
+
+Mixbox는 Kubelka–Munk 방정식을 활용하여 색을 빛(RGB)이 아닌 **안료(Pigment)**로 모델링
+
+디지털 회화, 조색, 화장품 컬러 예측 등 **감산 혼색(Subtractive Mixing)**을 정확히 재현 가능
+
+단순 RGB 평균 혼합 대비 실제 물리적 혼색과 유사한 결과를 제공
+
+본 실습에서는 pymixbox를 통해 Python 환경에서 실제 혼합 결과를 수치로 확인
+
+
+---
+📚 참고
+
+원 논문: Practical Pigment Mixing for Digital Painting, ACM TOG (2021)
+
+오픈소스: https://github.com/scrtwpns/mixbox
+
+---
 
